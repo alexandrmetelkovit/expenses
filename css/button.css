@@ -1,0 +1,42 @@
+.addBtn,
+.clearBtn,
+.changeValueBtn {
+  width: 370px;
+  height: 60px;
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 400;
+  color: #fff;
+  background-color: #0094ff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.changeValueBtn {
+  width: 100%;
+  font-size: 25px;
+  text-transform: uppercase;
+}
+
+.clearBtn {
+  background-color: red;
+}
+
+.addBtn:hover,
+.clearBtn:hover {
+  opacity: 0.5;
+}
+
+.newLimitBtn {
+  background-color: rgb(38, 126, 86);
+}
+
+@media (max-width: 767px) {
+  .addBtn,
+  .clearBtn {
+    width: 100%;
+    height: 40px;
+    font-size: 22px;
+  }
+}

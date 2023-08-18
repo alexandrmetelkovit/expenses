@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>expenses-app</title>
+
+    <link rel="shortcut icon" href="./resources/819196.png" type="image/png" />
+
+    <link rel="stylesheet" href="css/reset.css" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/expensesInput.css" />
+    <link rel="stylesheet" href="css/stats.css" />
+    <link rel="stylesheet" href="css/popup.css" />
+    <link rel="stylesheet" href="css/history.css" />
+    <link rel="stylesheet" href="css/button.css" />
+</head>
+
+<body class="body">
+    <div class="expenses">
+        <h1 class="titleExpenses label">Учет расходов</h1>
+
+        <div class="expensesInput">
+            <div class="moneyInput rub">
+                <input id="moneyInput" class="moneyInput__input" type="number" placeholder="Сколько тратим?" min="1" />
+            </div>
+            <select id="categorySelect" class="categorySelect" name="category">
+                <option hidden selected disabled value="Категория">
+                    Выберите категорию
+                </option>
+                <option value="рестораны">рестораны</option>
+                <option value="аптека">аптека</option>
+                <option value="развлечения">развлечения</option>
+                <option value="транспорт">транспорт</option>
+            </select>
+            <button id="addBtn" class="addBtn">Добавить</button>
+        </div>
+
+        <div class="stats">
+            <div class="stats__limit">
+                <span class="label">Лимит:</span>
+                <span id="limitValue" class="rub"></span>
+                <button id="openPopup" class="open__popup__img"></button>
+            </div>
+
+            <div class="stats__sum">
+                <span class="label">Всего:</span>
+                <span id="sumValue" class="rub"></span>
+            </div>
+            <div class="stats__status">
+                <span class="label">Статус:</span>
+                <span id="statusText" class="stats__statusText_positive"></span>
+            </div>
+        </div>
+
+        <!-- popup -->
+        <div id="popup" class="popup">
+            <div id="popupContent" class="popup__content">
+                <button id="closePopup" class="close__popup"></button>
+                <p class="popup__text">Изменить лимит</p>
+                <div class="moneyInput rub">
+                    <input id="newMoneyInput" class=" newMoneyInput__input moneyInput__input" type="number"
+                        placeholder="Задайте новое значение" />
+                </div>
+                <button id="changeValueBtn" class="addBtn changeValueBtn">
+                    Изменить
+                </button>
+            </div>
+        </div>
+        <!--  -->
+
+        <div class="history__inner">
+            <h2 class="titleHistory label">История</h2>
+            <div id="history" class="history"></div>
+        </div>
+        <button id="clearBtn" class="clearBtn">Сбросить</button>
+    </div>
+
+    <script src="js/index.js"></script>
+</body>
+
+</html>

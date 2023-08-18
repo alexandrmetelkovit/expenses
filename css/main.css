@@ -1,0 +1,30 @@
+@import url('/css/expensesInput.css');
+@import url('/css/stats.css');
+@import url('/css/popup.css');
+@import url('/css/history.css');
+@import url('/css/button.css');
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  font-size: 32px;
+  line-height: 38px;
+  font-weight: 400;
+  background-color: #ffffff;
+}
+
+.label {
+  font-weight: 700;
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 20px;
+  }
+
+}
+
+

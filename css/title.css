@@ -1,0 +1,13 @@
+.titleExpenses,
+.titleHistory {
+  font-size: 32px;
+  line-height: 38px;
+}
+
+@media (max-width: 767px) {
+  .titleExpenses,
+  .titleHistory {
+    max-width: 500px;
+    font-size: 20px;
+  }
+}

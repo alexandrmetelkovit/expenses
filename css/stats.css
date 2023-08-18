@@ -1,0 +1,64 @@
+.stats {
+  width: 484px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  border: 2px dotted rgb(232, 40, 149);
+  border-radius: 15px;
+  padding: 15px;
+  text-align: center;
+}
+
+.label {
+  font-weight: 700;
+}
+
+.stats__statusText_positive {
+  color: green;
+}
+
+.stats__statusText_negative {
+  color: red;
+}
+
+.stats__limit {
+  position: relative;
+}
+
+.open__popup__img {
+  position: absolute;
+  background-image: url("../resources/icon.svg");
+  background-repeat: no-repeat;
+  background-color: #fff;
+  border: none;
+  width: 42px;
+  height: 44px;
+  bottom: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.open__popup__img:hover {
+  opacity: 0.7;
+}
+
+.stats__changeLimitBtn {
+  cursor: pointer;
+}
+
+ol {
+  list-style: decimal;
+  list-style-position: inside;
+}
+
+li {
+  margin-bottom: 15px;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 400;
+}
+
+.rub::after {
+  content: " руб.";
+}

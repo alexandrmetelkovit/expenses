@@ -1,0 +1,23 @@
+.history__inner {
+  width: 484px;
+  text-align: center;
+}
+
+.history {
+  width: 484px;
+}
+
+@media (max-width: 767px) {
+  .history__inner {
+    max-width: 300px;
+  }
+
+  .history {
+    width: 100%;
+  }
+
+  li {
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+}
