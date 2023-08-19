@@ -1,74 +1,75 @@
 .expenses {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    row-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+}
+
+.expensesInput {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 484px;
+  border: 3px solid #0094ff;
+  border-radius: 30px;
+  padding: 30px;
+}
+
+.categorySelect {
+  width: 420px;
+  height: 58px;
+  font-size: inherit;
+  border: 1px solid black;
+}
+
+select {
+  width: 370px;
+  height: 60px;
+  font-size: 25px;
+  font-weight: 400;
+  text-align: center;
+  cursor: pointer;
+}
+
+.moneyInput {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px 17px 9px 27px;
+  border: 2px solid #000;
+}
+
+.moneyInput__input {
+  width: 100%;
+  font-size: inherit;
+  border: none;
+}
+
+@media (max-width: 767px) {
+  .expenses {
+    width: 100%;
   }
 
   .expensesInput {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    width: 484px;
-    border: 3px solid #0094ff;
-    border-radius: 30px;
-    padding: 30px;
+    width: 100%;
   }
-  
+
   .categorySelect {
-    width: 420px;
-    height: 58px;
-    font-size: inherit;
-    border: 1px solid black;
+    width: 100%;
   }
-  
+
   select {
-    width: 370px;
-    height: 60px;
-    font-size: 25px;
-    font-weight: 400;
-    text-align: center;
-    cursor: pointer;
+    width: 200px;
+    height: 40px;
+    font-size: 15px;
   }
-  
+
   .moneyInput {
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 10px 17px 9px 27px;
-    border: 2px solid #000;
+    padding: 7px 10px 5px 15px;
+    font-size: 20px;
   }
-  
-  .moneyInput__input {
-    width: 100%;
-    font-size: inherit;
-  }
-
-  @media (max-width: 767px) {
-    .expenses {
-      width: 100%;
-    }
-
-    .expensesInput {
-      width: 100%;
-    }
-  
-    .categorySelect {
-      width: 100%;
-    }
-
-    select {
-      width: 200px;
-      height: 40px;
-      font-size: 15px;
-    }
-  
-    .moneyInput {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      padding: 7px 10px 5px 15px;
-      font-size: 20px;
-    }
-  }
+}

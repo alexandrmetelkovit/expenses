@@ -32,7 +32,7 @@
   background-repeat: no-repeat;
   background-color: #fff;
   border: none;
-  width: 42px;
+  width: 41px;
   height: 44px;
   bottom: 5px;
   cursor: pointer;
@@ -61,4 +61,10 @@ li {
 
 .rub::after {
   content: " руб.";
+}
+
+@media (max-width: 767px) {
+  .stats {
+    width: 100%;
+  }
 }

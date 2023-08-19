@@ -2,8 +2,9 @@
 const CURRENCY = "руб.";
 const STATUS_IN_LIMIT = "Все хорошо";
 const STATUS_OUT_OF_LIMIT = "Все плохо";
-
-const POPUP_OPEN_CLASSNAME = "popup__open";
+const POPUP_OPEN_CLASSNAME = "popup_open";
+const STORAGE_LABEL_LIMIT = "limit";
+const STORAGE_LABEL_EXPENSES = "expenses";
 
 //подсветка статуса после отображения суммы
 const STATUS_IN_LIMIT_CLASSNAME = "stats__statusText_positive";
@@ -42,11 +43,30 @@ const changeValueBtnNode = document.getElementById("changeValueBtn");
 // //
 const popupContentNode = document.getElementById("popupContent");
 
+const expensesFromStorageString = localStorage.getItem(STORAGE_LABEL_EXPENSES);
+// parse превращает строку в объект
+const expensesFromStorage = JSON.parse(expensesFromStorageString);
 //массив с расходами
-const expenses = [];
+let expenses = [];
+if (Array.isArray(expensesFromStorage)) {
+  expenses = expensesFromStorage;
+}
+// вызывая эту функцию "лимит" ни чему не равен и "всего" тоже
+// render()
 
 //переменная с начальным лимитом
-let limit = 10000;
+let limit = parseInt(limitValueNode.innerText);
+
+initLimit();
+
+function initLimit() {
+  const limitFromStorage = parseInt(localStorage.getItem(STORAGE_LABEL_LIMIT));
+  if (!limitFromStorage) {
+    return;
+  }
+  limit = limitFromStorage;
+  limit = parseInt(limitValueNode.innerText);
+}
 
 init(expenses);
 
@@ -61,28 +81,33 @@ function init(expenses) {
   statusTextNode.innerText = STATUS_IN_LIMIT;
 }
 
+const saveExpensesToStorage = () => {
+  //JSON - она разбирает объект expenses и превращает в строку
+  const expensesString = JSON.stringify(expenses);
+  localStorage.setItem(STORAGE_LABEL_EXPENSES, expensesString);
+};
+
 function getExpenseHandler() {
   // получаем расход от пользователя
   const expense = getExpenseFromUser();
 
   // если расхода нет, то ничего не делай
   if (!expense) {
-    return;
+    return alert("Задайте сумму");
   }
 
   const expenseCategory = getSelectedCategory();
 
   // если категория не выбрана, то ничего не делай
   if (expenseCategory === "Категория") {
-    return;
+    return alert("Выберите категорию");
   }
 
   const newExpense = { amount: expense, category: expenseCategory };
   console.log(newExpense);
 
   expenses.push(newExpense);
-
-  // trackExpense(expense);
+  saveExpensesToStorage();
 
   //отрисовываю интерфейс
   render(expenses);
@@ -91,11 +116,6 @@ function getExpenseHandler() {
 function getSelectedCategory() {
   return categorySelectNode.value;
 }
-
-//функция, которая добавляет каждый последующий расход в массив
-// function trackExpense(expense) {
-//   expenses.push(expense);
-// }
 
 // функция, которая получает значения от пользователя из поля ввода
 //- если ничего нет, то пусто
@@ -128,7 +148,7 @@ function calculateExpenses(expenses) {
   let sum = 0;
 
   expenses.forEach((expense) => {
-    sum = sum + expense.amount; // sum += element
+    sum = sum + expense.amount; // sum += expense.amount;
   });
 
   return sum;
@@ -137,7 +157,7 @@ function calculateExpenses(expenses) {
 //функция отрисовка истории
 //- выводим новый список трат
 //- пробегаемся по списку с помощью цикла forEach и добавляем его в HTML
-// вкладываем в history список Ol
+// вкладываем в history список ol
 function renderHistory(expenses) {
   let expensesListHTML = "";
 
@@ -173,13 +193,12 @@ function renderStatus(sum) {
   }
 }
 
-//функция отображение "лимита, всего и статуса"
+//функция отображения: "лимит, всего и статус"
 //-рисуем историю
 //-рисуем сумму
 //-рисуем статус
 function render(expenses) {
   const sum = calculateExpenses(expenses);
-  // console.warn(sum);
 
   renderHistory(expenses);
 
@@ -200,47 +219,19 @@ function clearBtnHandler() {
   clearInput();
 }
 
-//привязка функций обработчиков к кнопкам
-//обработчик события по нажатию кнопки "добавить"
-addBtnNode.addEventListener("click", getExpenseHandler);
-//обработчик события по нажатию кнопки "сбросить"
-clearBtnNode.addEventListener("click", clearBtnHandler);
-
-// //обработчик события по клику на иконку
-// changeLimitIconNode.addEventListener("click", togglePopup);
-
-// //обработчик события по клику на крестик закрытия попапа
-// btnCloseNode.addEventListener("click", togglePopup);
-btnOpenPopup.addEventListener("click", function () {
-  openPopup();
-});
-
-closePopupNode.addEventListener("click", function () {
-  closePopup();
-});
-
-function openPopup() {
-  popupNode.classList.add("popup_open");
-
+function openPopupHandler() {
+  popupNode.classList.add(POPUP_OPEN_CLASSNAME);
 }
 
-function closePopup() {
-  popupNode.classList.remove("popup_open");
+function closePopupHandler() {
+  popupNode.classList.remove(POPUP_OPEN_CLASSNAME);
 }
-
-//клик по иконке (далее берем свойства из css)
-//открытие попапа
-//фиксация попапа
-// function togglePopup() {
-//   popupBgNode.classList.toggle(POPUP_OPENED_CLASSNAME);
-//   bodyPopUpNode.classList.toggle(BODY_FIXED_CLASSNAME);
-// }
 
 // обработчик события по клику
 changeValueBtnNode.addEventListener("click", function () {
   changeInputAmount();
   renderStatus(calculateExpenses(expenses));
-  closePopup()
+  closePopupHandler();
   clearInput();
   togglePopup();
 });
@@ -251,4 +242,15 @@ function changeInputAmount() {
   }
   limitValueNode.innerText = newMoneyInputNode.value;
   limit = newMoneyInputNode.value;
+  localStorage.setItem(STORAGE_LABEL_LIMIT, limit);
 }
+
+//привязка функций обработчиков к кнопкам
+//обработчик события по нажатию кнопки "добавить"
+addBtnNode.addEventListener("click", getExpenseHandler);
+//обработчик события по нажатию кнопки "сбросить"
+clearBtnNode.addEventListener("click", clearBtnHandler);
+//обработчик события по нажатию на изменение лимита
+btnOpenPopup.addEventListener("click", openPopupHandler);
+//обработчик события по нажатию на закрытие попапа
+closePopupNode.addEventListener("click", closePopupHandler);
