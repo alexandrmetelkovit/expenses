@@ -64,7 +64,7 @@ function initLimit() {
   if (!limitFromStorage) {
     return;
   }
-  limit = limitFromStorage;
+  limitValueNode.innerText = limitFromStorage;
   limit = parseInt(limitValueNode.innerText);
 }
 
@@ -225,6 +225,7 @@ function openPopupHandler() {
 
 function closePopupHandler() {
   popupNode.classList.remove(POPUP_OPEN_CLASSNAME);
+  // body.classList.toggle("body_fixed");
 }
 
 // обработчик события по клику
@@ -233,12 +234,11 @@ changeValueBtnNode.addEventListener("click", function () {
   renderStatus(calculateExpenses(expenses));
   closePopupHandler();
   clearInput();
-  togglePopup();
 });
 
 function changeInputAmount() {
   if (newMoneyInputNode.value == "") {
-    return;
+    return alert('Лимит остался прежним');
   }
   limitValueNode.innerText = newMoneyInputNode.value;
   limit = newMoneyInputNode.value;

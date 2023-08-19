@@ -26,6 +26,7 @@
   gap: 25px;
   background-color: #fff;
   padding: 30px;
+  border-radius: 10px;
 }
 
 .popup__text {
@@ -36,7 +37,7 @@
   position: absolute;
   top: 18px;
   right: 15px;
-  background-image: url('../resources/close_popup.svg');
+  background-image: url("../resources/close_popup.svg");
   width: 33px;
   height: 33px;
   border: none;
