@@ -48,9 +48,9 @@ const expensesFromStorageString = localStorage.getItem(STORAGE_LABEL_EXPENSES);
 const expensesFromStorage = JSON.parse(expensesFromStorageString);
 //массив с расходами
 let expenses = [];
-if (Array.isArray(expensesFromStorage)) {
-  expenses = expensesFromStorage;
-}
+// if (Array.isArray(expensesFromStorage)) {
+//   expenses = expensesFromStorage;
+// }
 // вызывая эту функцию "лимит" ни чему не равен и "всего" тоже
 // render()
 
@@ -225,7 +225,6 @@ function openPopupHandler() {
 
 function closePopupHandler() {
   popupNode.classList.remove(POPUP_OPEN_CLASSNAME);
-  // body.classList.toggle("body_fixed");
 }
 
 // обработчик события по клику
