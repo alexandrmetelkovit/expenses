@@ -48,9 +48,9 @@ const expensesFromStorageString = localStorage.getItem(STORAGE_LABEL_EXPENSES);
 const expensesFromStorage = JSON.parse(expensesFromStorageString);
 //массив с расходами
 let expenses = [];
-// if (Array.isArray(expensesFromStorage)) {
-//   expenses = expensesFromStorage;
-// }
+if (Array.isArray(expensesFromStorage)) {
+  expenses = expensesFromStorage;
+}
 // вызывая эту функцию "лимит" ни чему не равен и "всего" тоже
 // render()
 
@@ -123,8 +123,8 @@ function getSelectedCategory() {
 //- очисти поле после отправки значения в массив
 //- верни расход
 function getExpenseFromUser() {
-  if (!moneyInputNode.value) {
-    return;
+  if (!moneyInputNode.value || moneyInputNode.value < 0) {
+    return moneyInputNode.value = "";
   }
 
   const expense = parseInt(moneyInputNode.value);
@@ -172,6 +172,8 @@ function renderHistory(expenses) {
 // - элемент sumValue из HTML приравнивается сумме расходов
 function renderSum(sum) {
   sumValueNode.innerText = sum;
+
+
 }
 
 //функция, которая обновляет статус в зависимости от "ВСЕГО"
@@ -212,6 +214,7 @@ function clearBtn() {
   expenses.length = [];
   render(expenses);
   statusTextNode.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
+
 }
 
 function clearBtnHandler() {
@@ -240,7 +243,9 @@ function changeInputAmount() {
     return alert('Лимит остался прежним');
   }
   limitValueNode.innerText = newMoneyInputNode.value;
+
   limit = newMoneyInputNode.value;
+
   localStorage.setItem(STORAGE_LABEL_LIMIT, limit);
 }
 

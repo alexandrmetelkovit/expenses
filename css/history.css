@@ -5,6 +5,8 @@
 
 .history {
   width: 484px;
+  max-height: 200px;
+  overflow-y: scroll;
 }
 
 @media (max-width: 767px) {
