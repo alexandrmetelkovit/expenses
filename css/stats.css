@@ -26,7 +26,7 @@
   position: relative;
 }
 
-.open__popup__img {
+.open__popup {
   position: absolute;
   background-image: url("../resources/icon.svg");
   background-repeat: no-repeat;

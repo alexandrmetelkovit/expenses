@@ -43,14 +43,9 @@ const changeValueBtnNode = document.getElementById("changeValueBtn");
 // //
 const popupContentNode = document.getElementById("popupContent");
 
-const expensesFromStorageString = localStorage.getItem(STORAGE_LABEL_EXPENSES);
-// parse превращает строку в объект
-const expensesFromStorage = JSON.parse(expensesFromStorageString);
 //массив с расходами
 let expenses = [];
-if (Array.isArray(expensesFromStorage)) {
-  expenses = expensesFromStorage;
-}
+
 // вызывая эту функцию "лимит" ни чему не равен и "всего" тоже
 // render()
 
@@ -68,17 +63,28 @@ function initLimit() {
   limit = parseInt(limitValueNode.innerText);
 }
 
-init(expenses);
+init();
 
 // начальные значения
 //- "лимит" = 10000
 //-"всего" = функции, в которой считается все расходы
 //-статус = "Все хорошо"
-function init(expenses) {
+function init() {
   // отображение
-  limitValueNode.innerText = limit;
-  sumValueNode.innerText = calculateExpenses(expenses);
-  statusTextNode.innerText = STATUS_IN_LIMIT;
+  // limitValueNode.innerText = limit;
+  // sumValueNode.innerText = calculateExpenses(expenses);
+  // statusTextNode.innerText = STATUS_IN_LIMIT;
+
+  const expensesFromStorageString = localStorage.getItem(
+    STORAGE_LABEL_EXPENSES
+  );
+  // parse превращает строку в объект
+  const expensesFromStorage = JSON.parse(expensesFromStorageString);
+  if (Array.isArray(expensesFromStorage)) {
+    expenses = expensesFromStorage;
+  }
+
+  render(expenses);
 }
 
 const saveExpensesToStorage = () => {
@@ -111,6 +117,8 @@ function getExpenseHandler() {
 
   //отрисовываю интерфейс
   render(expenses);
+
+  clearInput();
 }
 
 function getSelectedCategory() {
@@ -124,12 +132,10 @@ function getSelectedCategory() {
 //- верни расход
 function getExpenseFromUser() {
   if (!moneyInputNode.value || moneyInputNode.value < 0) {
-    return moneyInputNode.value = "";
+    return (moneyInputNode.value = "");
   }
 
   const expense = parseInt(moneyInputNode.value);
-
-  clearInput();
 
   return expense;
 }
@@ -139,6 +145,10 @@ function getExpenseFromUser() {
 //новый инпут для нового лимита = пустой строке
 function clearInput() {
   moneyInputNode.value = "";
+  categorySelectNode.value = "Категория";
+}
+
+function clearInputPopup() {
   newMoneyInputNode.value = "";
 }
 
@@ -170,11 +180,10 @@ function renderHistory(expenses) {
 
 //отображение "всего"
 // - элемент sumValue из HTML приравнивается сумме расходов
-function renderSum(sum) {
-  sumValueNode.innerText = sum;
+// function renderSum(sum) {
+//   sumValueNode.innerText = sum;
 
-
-}
+// }
 
 //функция, которая обновляет статус в зависимости от "ВСЕГО"
 //если сумма <= лимиту(10000), то "все хорошо" и цвет зеленый
@@ -182,15 +191,15 @@ function renderSum(sum) {
 function renderStatus(sum) {
   // console.warn("sum", sum);
   // console.warn("limit", limit);
-  const total = calculateExpenses(expenses);
-  sumValueNode.innerText = total;
+  // const total = calculateExpenses(expenses);
+  sumValueNode.innerText = sum;
 
   if (sum <= limit) {
     statusTextNode.innerText = STATUS_IN_LIMIT;
     statusTextNode.classList.add(STATUS_IN_LIMIT_CLASSNAME);
     statusTextNode.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
   } else {
-    statusTextNode.innerText = `${STATUS_OUT_OF_LIMIT} (${limit - total} руб.)`;
+    statusTextNode.innerText = `${STATUS_OUT_OF_LIMIT} (${limit - sum} руб.)`;
     statusTextNode.classList.add(STATUS_OUT_OF_LIMIT_CLASSNAME);
   }
 }
@@ -204,7 +213,7 @@ function render(expenses) {
 
   renderHistory(expenses);
 
-  renderSum(sum);
+  // renderSum(sum);
 
   renderStatus(sum);
 }
@@ -214,7 +223,6 @@ function clearBtn() {
   expenses.length = [];
   render(expenses);
   statusTextNode.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
-
 }
 
 function clearBtnHandler() {
@@ -235,12 +243,12 @@ changeValueBtnNode.addEventListener("click", function () {
   changeInputAmount();
   renderStatus(calculateExpenses(expenses));
   closePopupHandler();
-  clearInput();
+  clearInputPopup();
 });
 
 function changeInputAmount() {
   if (newMoneyInputNode.value == "") {
-    return alert('Лимит остался прежним');
+    return alert("Лимит остался прежним");
   }
   limitValueNode.innerText = newMoneyInputNode.value;
 
