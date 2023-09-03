@@ -223,13 +223,13 @@ function clearBtn() {
   expenses.length = [];
   render(expenses);
   statusTextNode.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
+  localStorage.removeItem(STORAGE_LABEL_LIMIT, limit);
+  localStorage.removeItem(STORAGE_LABEL_EXPENSES, expenses);
 }
 
 function clearBtnHandler() {
   clearBtn();
   clearInput();
-  localStorage.removeItem(STORAGE_LABEL_LIMIT, limit);
-  localStorage.removeItem(STORAGE_LABEL_EXPENSES, expenses);
 }
 
 function openPopupHandler() {
