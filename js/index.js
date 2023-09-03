@@ -228,6 +228,8 @@ function clearBtn() {
 function clearBtnHandler() {
   clearBtn();
   clearInput();
+  localStorage.removeItem(STORAGE_LABEL_LIMIT, limit);
+  localStorage.removeItem(STORAGE_LABEL_EXPENSES, expenses);
 }
 
 function openPopupHandler() {
