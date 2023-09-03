@@ -220,7 +220,7 @@ function render(expenses) {
 
 //функция очистки истории, обнуление "всего" и удаление красного цвета "все плохо"
 function clearBtn() {
-  expenses.length = [];
+  expenses = [];
   render(expenses);
   statusTextNode.classList.remove(STATUS_OUT_OF_LIMIT_CLASSNAME);
   localStorage.removeItem(STORAGE_LABEL_EXPENSES, expenses);
